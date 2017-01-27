@@ -1,9 +1,3 @@
-<%--  Created by IntelliJ IDEA.
-  User: Максим
-  Date: 20.01.2017
-  Time: 22:20
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -14,27 +8,37 @@
     <title>Meal list</title>
 </head>
 <style>
-    .green{color: green}
-    .red{color: red}
+    .green {
+        color: green
+    }
+
+    .red {
+        color: red
+    }
 </style>
 <body>
 <h2><a href="index.html">Home</a></h2>
 <h2>Meal list</h2>
 <table border="1">
+    <th>ID</th>
     <th>Дата и время</th>
     <th>Описание</th>
     <th>Каллории</th>
-    <c:forEach items="${mealList}" var="meal" >
-     <tr class="${meal.exceed ? 'red' : 'green'}">
-         <c:set var="cleanedDateTime" value="${fn:replace(meal.dateTime, 'T', ' ')}" />
-         <fmt:parseDate value="${cleanedDateTime}" pattern="yyyy-MM-dd HH:mm" var="parsedDate" type="date"/>
-         <fmt:formatDate value="${parsedDate}" type="date" pattern="yyyy-MM-dd HH:mm" var="date"/>
-          <td>${date}</td>
-          <td>${meal.description}</td>
-          <td>${meal.calories}</td>
+    <th colspan=2>Action</th>
+    <c:forEach items="${mealList}" var="meal">
+        <tr class="${meal.exceed ? 'red' : 'green'}">
+            <td>${meal.id}</td>
+            <c:set var="cleanedDateTime" value="${fn:replace(meal.dateTime, 'T', ' ')}"/>
+            <fmt:parseDate value="${cleanedDateTime}" pattern="yyyy-MM-dd HH:mm" var="parsedDate" type="date"/>
+            <fmt:formatDate value="${parsedDate}" type="date" pattern="yyyy-MM-dd HH:mm" var="date"/>
+            <td>${date}</td>
+            <td>${meal.description}</td>
+            <td>${meal.calories}</td>
+            <td><a href="meals?action=edit&id=<c:out value="${meal.id}"/>">Редактировать</a></td>
+            <td><a href="meals?action=delete&id=<c:out value="${meal.id}"/>">Удалить</a></td>
         </tr>
-</c:forEach>
-        </table>
-
+    </c:forEach>
+</table>
+<p><a href="meals?action=insert">Add User</a></p>
 </body>
 </html>
