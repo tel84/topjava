@@ -10,9 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 11.01.2015.
  */
 public class Meal {
-    private static AtomicInteger atomic = new AtomicInteger(0);
-
-    private final int id;
+    private int id;
 
     private LocalDateTime dateTime;
 
@@ -21,14 +19,17 @@ public class Meal {
     private int calories;
 
     public Meal(){
-        id = atomic.getAndIncrement();
+
     }
 
     public Meal(LocalDateTime dateTime, String description, int calories) {
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
-        id = atomic.getAndIncrement();
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setDateTime(LocalDateTime dateTime) {

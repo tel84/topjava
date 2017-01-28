@@ -62,11 +62,7 @@ public class MealServlet extends HttpServlet {
         String date = request.getParameter("dateTime");
 
         if (description!=null && !description.isEmpty() && calories!=null && !calories.isEmpty() && date!=null && !date.isEmpty()) {
-            Meal meal;
-            if (id == null || id.isEmpty())
-                meal = new Meal();
-            else meal = mealDao.getMealById(Integer.parseInt(id));
-
+            Meal meal  = new Meal();
             meal.setDescription(description);
             meal.setCalories(Integer.parseInt(calories));
             meal.setDateTime(LocalDateTime.parse(date.replace("T", " "), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
@@ -75,6 +71,7 @@ public class MealServlet extends HttpServlet {
                 mealDao.addMeal(meal);
                 LOG.debug("meal with id=" + meal.getId() + " added");
             } else {
+                meal.setId(Integer.parseInt(id));
                 mealDao.updateMeal(meal);
                 LOG.debug("meal with id=" + meal.getId() + " updated");
             }
