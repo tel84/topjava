@@ -21,7 +21,7 @@
         </tr>
         <tr>
             <td>Дата и время :</td>
-            <td><input type="datetime" name="dateTime" value="${meal.dateTime}"/></td>
+            <td><input type="datetime-local" name="dateTime" value="${meal.dateTime}"/></td>
         </tr>
     </table>
     <input type="submit" value="${meal.id>-1 ? "Изменить":"Добавить"}"/>
